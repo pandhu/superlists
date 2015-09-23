@@ -56,7 +56,36 @@ class HomePageTest(TestCase):
 
         self.assertIn('itemey 1', response.content.decode())
         self.assertIn('itemey 2', response.content.decode())
-        
+       
+    def test_home_page_automatic_comment_zero(self):
+        request = HttpRequest()
+        response = home_page(request)
+        self.assertIn('yey, waktunya berlibur', response.content.decode())
+
+    def test_home_page_automatic_comment_less_than_five(self):
+        request = HttpRequest()
+        response = home_page(request)
+        for i in range(0, 2):
+          Item.objects.create(text='item')
+        response = home_page(request)
+        self.assertIn('sibuk tapi santai', response.content.decode())
+
+    def test_home_page_automatic_comment_five(self):
+        request = HttpRequest()
+        response = home_page(request)
+        for i in range(0, 5):
+          Item.objects.create(text='item')
+        response = home_page(request)
+        self.assertIn('oh tidak', response.content.decode())
+
+    def test_home_page_automatic_comment_more_than_five(self):
+        request = HttpRequest()
+        response = home_page(request)
+        for i in range(0, 6):
+          Item.objects.create(text='item')
+        response = home_page(request)
+        self.assertIn('oh tidak', response.content.decode())
+
 class ItemModelTest(TestCase):
 
     def test_saving_and_retrieving_items(self):

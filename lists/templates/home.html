@@ -8,11 +8,19 @@
 		<input name="item_text" id="id_new_item" placeholder="Enter a to-do item" />
 		{% csrf_token %}
 	</form>
+	{% if items.count >= 5 %}
+		<span>oh tidak</span>
+	{% elif items.count > 0 %}
+		<span>sibuk tapi santai</span>
+	{% else %}
+		<span>yey, waktunya berlibur</span>
+	{% endif %}
 
 	<table id="id_list_table">
 		{% for item in items %}
         <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
    		{% endfor %}
+
 	</table>
 </body>
 </html>
