@@ -77,40 +77,40 @@ class ListViewTest(TestCase):
         response = self.client.get('/lists/%d/' % (correct_list.id,))
         self.assertEqual(response.context['list'], correct_list)
             
-    '''
+    
     def test_home_page_automatic_comment_zero(self):
         list_ = List.objects.create()
         request = HttpRequest()
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        response = self.client.get('/lists/%d/' % (list_.id,))
         self.assertIn('yey, waktunya berlibur', response.content.decode())
 
     def test_home_page_automatic_comment_less_than_five(self):
         list_ = List.objects.create()
         request = HttpRequest()
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        response = self.client.get('/lists/%d/' % (list_.id,))
         for i in range(0, 2):
           Item.objects.create(text='item', list=list_)
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        response = self.client.get('/lists/%d/' % (list_.id,))
         self.assertIn('sibuk tapi santai', response.content.decode())
 
     def test_home_page_automatic_comment_five(self):
         list_ = List.objects.create()    
         request = HttpRequest()
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        response = self.client.get('/lists/%d/' % (list_.id,))
         for i in range(0, 5):
           Item.objects.create(text='item', list=list_)
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        response = self.client.get('/lists/%d/' % (list_.id,))
         self.assertIn('oh tidak', response.content.decode())
 
     def test_home_page_automatic_comment_more_than_five(self):
         list_ = List.objects.create()
         request = HttpRequest()
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        response = self.client.get('/lists/%d/' % (list_.id,))
         for i in range(0, 6):
           Item.objects.create(text='item', list=list_)
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        response = self.client.get('/lists/%d/' % (list_.id,))
         self.assertIn('oh tidak', response.content.decode())
-    '''
+    
 class NewListTest(TestCase):
 
     def test_saving_a_POST_request(self):
